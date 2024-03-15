@@ -1,2 +1,7 @@
 # created by virtualenv automatically
 venv/
+lib/
+bin/
+.idea/
+__pycache__/
+.DS_Store

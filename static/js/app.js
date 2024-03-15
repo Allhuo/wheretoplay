@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     let latLngs = data.map(coord => [coord[1], coord[0]]);
                     currentCityLayer = L.polygon(latLngs).addTo(map);
                     map.fitBounds(currentCityLayer.getBounds());
-                    goBtn.hidden = false;
+                    goBtn.classList.add('show');
                 } else {
                     alert('未找到该城市的地图数据');
                 }
@@ -75,9 +75,33 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 let [lon, lat] = data;
-                map.flyTo([lat, lon], 12);
+                map.flyTo([lat, lon], 13);
                 L.marker([lat, lon]).addTo(map);
             });
         }
+    });
+
+    // 添加动画效果
+    cityInput.addEventListener('focus', function() {
+        citySelect.classList.add('show');
+    });
+
+    cityInput.addEventListener('blur', function() {
+        setTimeout(function() {
+            citySelect.classList.remove('show');
+        }, 200);
+    });
+
+    citySelect.addEventListener('click', function() {
+        setTimeout(function() {
+            map.classList.add('zoom');
+            setTimeout(function() {
+                map.classList.remove('zoom');
+            }, 300);
+        }, 500);
+    });
+
+    goBtn.addEventListener('click', function() {
+        goBtn.classList.add('show');
     });
 });
